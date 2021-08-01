@@ -21,7 +21,13 @@ pip install face-symmetrizer
 ```python
 from face_symmetrizer import FaceSym
 
-f = FaceSym("img/two_people.jpg") # Image URL or local file path
+# load from local file path
+f = FaceSym("img/two_people.jpg")
+# or, load from URL
+# f = FaceSym("https://raw.githubusercontent.com/ageitgey/"
+              "face_recognition/master/examples/two_people.jpg")
+
+
 # ATTRS: ['image_location',
 #         'f_img', 'f_img_PIL', 'image_size',
 #         'face_locations', 'face_landmarks',
