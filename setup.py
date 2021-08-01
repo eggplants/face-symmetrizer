@@ -1,10 +1,8 @@
 from setuptools import find_packages, setup  # type: ignore
 
-from face_symmetrizer import __version__
-
 setup(
     name='face_symmetrizer',
-    version=__version__.__version__,
+    version='1.0',
     description='Easy symmetrizer for an image contained face(s)',
     description_content_type='',
     long_description=open('README.md').read(),
