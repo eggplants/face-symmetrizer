@@ -171,6 +171,9 @@ class FaceSim:
 
     @staticmethod
     def __is_valid_url(url: str) -> bool:
+        """Copyright (c) Django Software Foundation and individual contributors.
+           All rights reserved.
+        """
         regex = re.compile(
             r'^(?:http|ftp)s?://'  # http:// or https://
             # domain...

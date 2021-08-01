@@ -9,7 +9,7 @@ setup(
     description_content_type='',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/eggplants/',
+    url='https://github.com/eggplants/face-symmetrizer',
     author='eggplants',
     packages=find_packages(),
     python_requires='>=3.8',
