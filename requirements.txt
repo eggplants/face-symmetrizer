@@ -3,3 +3,4 @@ matplotlib
 numpy
 Pillow
 PyQt5
+types-Pillow

@@ -8,14 +8,15 @@ from typing import Any, Dict, List, Tuple, Union
 from urllib.request import urlopen
 
 import face_recognition
-import matplotlib
-import matplotlib.pyplot as plt
+import matplotlib  # type: ignore
+import matplotlib.pyplot as plt  # type: ignore
 import numpy as np
 from PIL import Image, ImageDraw, ImageOps
 
 matplotlib.use('Qt5Agg')
 
 PILImage = Image.Image
+FaceLandmarks = List[Dict[str, List[Tuple[Any, ...]]]]
 
 
 class FaceIsNotDetected(Exception):
@@ -42,8 +43,8 @@ class FaceSym:
         self.face_count = len(self.face_locations)
 
     @staticmethod
-    def __get_mid_face_locations(face_landmarks:  List[Dict[str, List[Tuple]]]
-                                 ) -> List[Tuple[int, int]]:
+    def __get_mid_face_locations(
+            face_landmarks: FaceLandmarks) -> List[Tuple[int, int]]:
         mid_faces = []
         for face_landmark in face_landmarks:
             if not('left_eye' in face_landmark
@@ -58,8 +59,7 @@ class FaceSym:
     def get_face_box_drawed_image(self, show: bool = False) -> PILImage:
         pil = copy(self.f_img_PIL)
         draw = ImageDraw.Draw(pil)
-        iter_ = enumerate(zip(self.face_locations, self.face_landmarks))
-        for idx, ((top, right, bottom, left), land) in iter_:
+        for idx, (top, right, bottom, left) in enumerate(self.face_locations):
             name = str("%02d" % idx)
             mid_face = self.mid_face_locations[idx]
 
@@ -70,7 +70,7 @@ class FaceSym:
                             (right, bottom)),
                            fill=(0, 0, 255), outline=(0, 0, 255))
             draw.text((left + 6, bottom - text_height - 5),
-                      name, fill=(255, 255, 255, 255))
+                      name, fill=(255, 255, 255))
 
             draw.line(((mid_face[0], -10), mid_face,
                        (mid_face[0], self.image_size[0])),
@@ -120,6 +120,8 @@ class FaceSym:
             pil_img_right, pil_img_right_mirrored)
 
         if show:
+
+            axarr: np.ndarray
             f, axarr = plt.subplots(2, 3)
             axarr[0, 0].imshow(pil_img_left)
             axarr[0, 1].imshow(pil_img_left_inner)
@@ -213,7 +215,7 @@ LINKS = [
 ]
 
 
-def main(data: List[str] = LINKS):
+def main(data: List[str] = LINKS) -> None:
     success, fail = 0, 0
     for idx, link in enumerate(data):
         print("[%02d]" % idx, link, end='')
