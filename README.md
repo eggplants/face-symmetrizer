@@ -1,11 +1,13 @@
 # face-symmetrizer
 
+[![PyPI version](https://img.shields.io/pypi/v/face_symmetrizer)](https://pypi.org/project/face-symmetrizer) [![GitHub release](https://img.shields.io/github/v/release/eggplants/face-symmetrizer)](https://github.com/eggplants/face-symmetrizer/releases)
+
 - Easy symmetrizer for an image contained face(s)
 
 ## Install
 
 ```bash
-pip install face_symmetrizer
+pip install face-symmetrizer
 ```
 
 ## How
