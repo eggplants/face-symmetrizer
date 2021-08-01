@@ -56,8 +56,9 @@ f.get_cropped_face_images(show=True) #=> [<PIL.Image.Image>, ...]
 - Get & show symmetrized images (face: 0)
 
 ```python
-f.get_symmetrized_images(show=True, idx=0) #=> (left_cropped, left_cropped_inner, left_cropped_outer,
-                                         right_cropped, right_cropped_inner, right_cropped_outer)
+f.get_symmetrized_images(show=True, idx=0)
+#=> (left_cropped, left_cropped_inner, left_cropped_outer,
+#    right_cropped, right_cropped_inner, right_cropped_outer)
 ```
 
 ![fig5](img/Figure_5.png)
