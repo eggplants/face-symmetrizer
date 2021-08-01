@@ -143,7 +143,7 @@ class FaceSym:
 
     def __load_from_local(self, path_: str) -> None:
         if path.isfile(path_):
-            self.f_img = face_recognition.load_image_file(path)
+            self.f_img = face_recognition.load_image_file(path_)
 
     def get_full_image(self, show: bool = False, is_pil: bool = False
                        ) -> Union[np.ndarray, PILImage]:
@@ -168,7 +168,7 @@ class FaceSym:
 
             images.append(pil_img)
 
-            return images
+        return images
 
     def get_size(self) -> Tuple[int, int]:
         return self.image_size
