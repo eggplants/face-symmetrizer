@@ -12,6 +12,10 @@ pip install face-symmetrizer
 
 ## How
 
+- Here is an example image of two people
+
+![fig0](img/two_people.jpg)
+
 - First, load an image
 
 ```python
@@ -56,7 +60,7 @@ f.get_symmetrized_images(show=True, idx=0) #=> (left_cropped, left_cropped_inner
                                          right_cropped, right_cropped_inner, right_cropped_outer)
 ```
 
-![fig1](img/Figure_5.png)
+![fig5](img/Figure_5.png)
 
 - Get & show symmetrized images (face: 1)
 
@@ -64,4 +68,4 @@ f.get_symmetrized_images(show=True, idx=0) #=> (left_cropped, left_cropped_inner
 f.get_symmetrized_images(show=True, idx=1)
 ```
 
-![fig1](img/Figure_6.png)
+![fig6](img/Figure_6.png)
