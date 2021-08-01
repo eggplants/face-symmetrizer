@@ -9,9 +9,12 @@ from typing import Any, Dict, List, Tuple, Union
 from urllib.request import urlopen
 
 import face_recognition
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image, ImageDraw, ImageOps
+
+matplotlib.use('Qt5Agg')
 
 # PILImage = ModuleType("Image")
 PILImage = Any
@@ -21,8 +24,9 @@ class FaceIsNotDetected(Exception):
     pass
 
 
-class FaceSim:
+class FaceSym:
     def __init__(self, img_location: str) -> None:
+        self.image_location = img_location
         if self.__is_valid_url(img_location):
             self.__load_from_url(img_location)
         elif path.isfile(img_location):
@@ -76,12 +80,13 @@ class FaceSim:
         del draw
         if show:
             plt.imshow(pil)
+            plt.show()
         return pil
 
     SimImages = Tuple[PILImage, PILImage, PILImage,
                       PILImage, PILImage, PILImage]
 
-    def get_simmetrized_images(
+    def get_symmetrized_images(
             self, idx: int = 0, show: bool = False) -> SimImages:
         def get_concat_h(im1: PILImage, im2: PILImage) -> PILImage:
             dst = Image.new('RGB', (im1.width + im2.width, im1.height))
@@ -144,6 +149,7 @@ class FaceSim:
                        ) -> Union[np.ndarray, PILImage]:
         if show:
             plt.imshow(self.f_img)
+            plt.show()
 
         if is_pil:
             return self.f_img_PIL
@@ -158,6 +164,7 @@ class FaceSim:
             pil_img = Image.fromarray(cropped_face_img)
             if show:
                 plt.imshow(pil_img)
+                plt.show()
 
             images.append(pil_img)
 
@@ -215,7 +222,7 @@ def main(data: List[str] = LINKS):
         f = FaceSim(link)
         if f.face_count != 0:
             print("=>Detected")
-            f.get_simmetrized_images(show=True)
+            f.get_symmetrized_images(show=True)
             success += 1
         else:
             print("=>Not Detected")
