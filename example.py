@@ -1,6 +1,8 @@
 from face_symmetrizer import FaceSym
 
-f = FaceSym("https://pbs.twimg.com/media/E7jaibgUcAUWvg-?format=jpg")
+f = FaceSym("img/two_people.jpg")
+# or:
+# f = FaceSym("https://github.com/ageitgey/face_recognition/blob/master/examples/two_people.jpg")
 for k in  ['image_location',
            'f_img', 'f_img_PIL', 'image_size',
            'face_locations', 'face_landmarks',
@@ -17,4 +19,5 @@ print("show cropped face(s)")
 f.get_cropped_face_images(show=True)
 
 print("show symmetrized images")
-f.get_symmetrized_images(show=True)
+for i in range(f.face_count):
+    f.get_symmetrized_images(idx=i, show=True)
