@@ -22,10 +22,10 @@ pip install face-symmetrizer
 from face_symmetrizer import FaceSym
 
 f = FaceSym("img/two_people.jpg") # Image URL or local file path
-# ATTR: ['image_location',
-         'f_img', 'f_img_PIL', 'image_size',
-         'face_locations', 'face_landmarks',
-         'mid_face_locations', 'face_count']
+# ATTRS: ['image_location',
+#         'f_img', 'f_img_PIL', 'image_size',
+#         'face_locations', 'face_landmarks',
+#         'mid_face_locations', 'face_count']
 ```
 
 - Get & show a full image
