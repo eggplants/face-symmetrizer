@@ -4,7 +4,6 @@ import io
 import re
 from copy import copy
 from os import path
-# from types import ModuleType
 from typing import Any, Dict, List, Tuple, Union
 from urllib.request import urlopen
 
@@ -16,8 +15,7 @@ from PIL import Image, ImageDraw, ImageOps
 
 matplotlib.use('Qt5Agg')
 
-# PILImage = ModuleType("Image")
-PILImage = Any
+PILImage = Image.Image
 
 
 class FaceIsNotDetected(Exception):
@@ -219,7 +217,7 @@ def main(data: List[str] = LINKS):
     success, fail = 0, 0
     for idx, link in enumerate(data):
         print("[%02d]" % idx, link, end='')
-        f = FaceSim(link)
+        f = FaceSym(link)
         if f.face_count != 0:
             print("=>Detected")
             f.get_symmetrized_images(show=True)
