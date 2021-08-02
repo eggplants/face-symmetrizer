@@ -25,7 +25,7 @@ from face_symmetrizer import FaceSym
 f = FaceSym("img/two_people.jpg")
 # or, load from URL
 # f = FaceSym("https://raw.githubusercontent.com/ageitgey/"
-              "face_recognition/master/examples/two_people.jpg")
+#             "face_recognition/master/examples/two_people.jpg")
 
 
 # ATTRS: ['image_location',
