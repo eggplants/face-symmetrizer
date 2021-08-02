@@ -193,26 +193,19 @@ class FaceSym:
         return re.match(regex, url) is not None
 
 
-LINKS = [
-    'https://pbs.twimg.com/media/E7okHDEVUAE1O6i?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E7jaibgUcAUWvg-?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E7jahEbUcAMNLdU?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E7Jqli9VEAEStvs?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E7Jqk-aUcAcfg3o?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E7EhGi2XoAsMrO5?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E5dhLccUYAUD5Yx?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E5TOAqUVUAMckXT?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E4vK6e0VgAAksnK?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E4Va7u4VkAAKde3?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E4A0ksEUYAIpynP?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E3xXzcyUYAIX1dC?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E2zkvONVcAQEE_S?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E1cBsxDUcAIe_LZ?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E1W4HTRVUAgYkmo?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E1HbVAeVIAId5yP?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E09INVFUcAYpcWo?format=jpg&name=orig',
-    'https://pbs.twimg.com/media/E0oh0hmUUAAfJV9?format=jpg&name=orig'
-]
+LINKS = list(map(
+    lambda x: "https://pbs.twimg.com/media/%s?format=jpg" % x,
+    [
+        "E7okHDEVUAE1O6i",  "E7jaibgUcAUWvg-",
+        "E7jahEbUcAMNLdU",  "E7Jqli9VEAEStvs",
+        "E7Jqk-aUcAcfg3o",  "E7EhGi2XoAsMrO5",
+        "E5dhLccUYAUD5Yx",  "E5TOAqUVUAMckXT",
+        "E4vK6e0VgAAksnK",  "E4Va7u4VkAAKde3",
+        "E4A0ksEUYAIpynP",  "E3xXzcyUYAIX1dC",
+        "E2zkvONVcAQEE_S",  "E1cBsxDUcAIe_LZ",
+        "E1W4HTRVUAgYkmo",  "E1HbVAeVIAId5yP",
+        "E09INVFUcAYpcWo",  "E0oh0hmUUAAfJV9"
+    ]))
 
 
 def main(data: List[str] = LINKS) -> None:
