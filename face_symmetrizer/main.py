@@ -20,13 +20,14 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument('--outdir', '-o',
                         default='.', type=str, metavar='dir',
-                        help="output directory of image")
+                        help="directory when saving images")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    os.makedirs(args.outdir, exist_ok=True)
+    if args.save:
+        os.makedirs(args.outdir, exist_ok=True)
     for filepath in args.images:
         print("[+]image:", filepath)
         if not os.path.exists(filepath):
