@@ -38,13 +38,16 @@ optional arguments:
 
 ```txt
 $ fsym img/two_people.jpg -o outimg -s --save
-[+] img/two_people.jpg
+[+]image: img/two_people.jpg
+[+]2 face(s) was detected.
+[+]face: 0 # open window when using `-s`
 [+]save: outimg/two_people.face-0.left_cropped.jpg
 [+]save: outimg/two_people.face-0.left_cropped_inner.jpg
 [+]save: outimg/two_people.face-0.left_cropped_outer.jpg
 [+]save: outimg/two_people.face-0.right_cropped.jpg
 [+]save: outimg/two_people.face-0.right_cropped_inner.jpg
 [+]save: outimg/two_people.face-0.right_cropped_outer.jpg
+[+]face: 1 # open window when using `-s`
 [+]save: outimg/two_people.face-1.left_cropped.jpg
 [+]save: outimg/two_people.face-1.left_cropped_inner.jpg
 [+]save: outimg/two_people.face-1.left_cropped_outer.jpg

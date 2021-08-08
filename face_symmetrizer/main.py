@@ -28,13 +28,13 @@ def main() -> None:
     args = parse_args()
     os.makedirs(args.outdir, exist_ok=True)
     for filepath in args.images:
-        print("[+]", filepath)
+        print("[+]image:", filepath)
         if not os.path.exists(filepath):
             print("[!]not found.")
             continue
         f = FaceSym(filepath)
-        if args.save:
-            _save(f, args)
+        print('[+]{} face(s) was detected.'.format(f.face_count))
+        _save(f, args)
 
 
 def _save(f: FaceSym, args: argparse.Namespace) -> None:
@@ -46,6 +46,7 @@ def _save(f: FaceSym, args: argparse.Namespace) -> None:
         ext = '.jpg'
     _, name = os.path.split(file)
     for face_id in range(f.face_count):
+        print('[+]face:', face_id)
         ims = f.get_symmetrized_images(
             idx=face_id, show=args.show)
         for idx, im in enumerate(ims):
@@ -53,8 +54,9 @@ def _save(f: FaceSym, args: argparse.Namespace) -> None:
                 args.outdir,
                 '{}.face-{}.{}{}'.format(
                     name, face_id, image_names[idx], ext))
-            print("[+]save:", savepath)
-            im.save(savepath)
+            if args.save:
+                print("[+]save:", savepath)
+                im.save(savepath)
 
 
 if __name__ == '__main__':
