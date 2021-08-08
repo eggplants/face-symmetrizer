@@ -38,17 +38,21 @@ def main() -> None:
 
 
 def _save(f: FaceSym, args: argparse.Namespace) -> None:
+    image_names = (
+        'left_cropped', 'left_cropped_inner', 'left_cropped_outer',
+        'right_cropped', 'right_cropped_inner', 'right_cropped_outer')
     file, ext = os.path.splitext(f.image_location)
     if ext == '' or ext is None:
         ext = '.jpg'
     _, name = os.path.split(file)
     for face_id in range(f.face_count):
         ims = f.get_symmetrized_images(
-            idx=face_id+1, show=args.show)
+            idx=face_id, show=args.show)
         for idx, im in enumerate(ims):
             savepath = os.path.join(
                 args.outdir,
-                '{}.face-{}.{}{}'.format(name, face_id, idx, ext))
+                '{}.face-{}.{}{}'.format(
+                    name, face_id, image_names[idx], ext))
             print("[+]save:", savepath)
             im.save(savepath)
 

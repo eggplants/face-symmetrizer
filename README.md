@@ -34,10 +34,23 @@ optional arguments:
   --outdir dir, -o dir  output directory of image (default: .)
 ```
 
-- Detect with window and save symmetrized images to spesific dir (`outimg`)
+- Detect with window and save symmetrized images to [outimg](outimg)
 
-```bash
-fsym img/two_people.jpg -o outimg -s --save
+```txt
+$ fsym img/two_people.jpg -o outimg -s --save
+[+] img/two_people.jpg
+[+]save: outimg/two_people.face-0.left_cropped.jpg
+[+]save: outimg/two_people.face-0.left_cropped_inner.jpg
+[+]save: outimg/two_people.face-0.left_cropped_outer.jpg
+[+]save: outimg/two_people.face-0.right_cropped.jpg
+[+]save: outimg/two_people.face-0.right_cropped_inner.jpg
+[+]save: outimg/two_people.face-0.right_cropped_outer.jpg
+[+]save: outimg/two_people.face-1.left_cropped.jpg
+[+]save: outimg/two_people.face-1.left_cropped_inner.jpg
+[+]save: outimg/two_people.face-1.left_cropped_outer.jpg
+[+]save: outimg/two_people.face-1.right_cropped.jpg
+[+]save: outimg/two_people.face-1.right_cropped_inner.jpg
+[+]save: outimg/two_people.face-1.right_cropped_outer.jpg
 ```
 
 ### Library
