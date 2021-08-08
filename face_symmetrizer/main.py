@@ -1,5 +1,7 @@
 import argparse
+import io
 import os
+import sys
 
 from face_symmetrizer import FaceSym
 
@@ -14,10 +16,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument('--show', '-s',
                         action='store_true',
                         help="show images")
-    parser.add_argument('--save',
+    parser.add_argument('--save', '-S',
                         action='store_true',
                         help="save images")
-
+    parser.add_argument('--quiet', '-q',
+                        action='store_true',
+                        help='make log quiet')
     parser.add_argument('--outdir', '-o',
                         default='.', type=str, metavar='dir',
                         help="directory when saving images")
@@ -26,6 +30,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    if args.quiet:
+        sys.stdout = io.TextIOWrapper(buffer=io.BytesIO())
     if args.save:
         os.makedirs(args.outdir, exist_ok=True)
     for filepath in args.images:
