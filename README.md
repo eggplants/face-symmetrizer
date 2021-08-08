@@ -31,7 +31,7 @@ optional arguments:
   -h, --help            show this help message and exit
   --show, -s            show images (default: False)
   --save                save images (default: False)
-  --outdir dir, -o dir  output directory of image (default: .)
+  --outdir dir, -o dir  directory when saving images (default: .)
 ```
 
 - Detect with window and save symmetrized images to [outimg](outimg)
