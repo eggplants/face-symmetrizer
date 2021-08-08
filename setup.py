@@ -13,5 +13,10 @@ setup(
     python_requires='>=3.8',
     include_package_data=True,
     license='MIT',
-    install_requires=open('requirements.txt').read().rstrip().split('\n')
+    install_requires=open('requirements.txt').read().rstrip().split('\n'),
+    entry_points={
+        'console_scripts': [
+            'fsym=face_symmetrizer.main:main'
+        ]
+    }
 )

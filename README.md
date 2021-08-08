@@ -16,6 +16,32 @@ pip install face-symmetrizer
 
 ![fig0](img/two_people.jpg)
 
+### Command
+
+```txt
+$ fsym -h
+usage: fsym [-h] [--show] [--save] [--outdir dir] file [file ...]
+
+Easy symmetrizer for an image contained face(s)
+
+positional arguments:
+  file                  input image files
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --show, -s            show images (default: False)
+  --save                save images (default: False)
+  --outdir dir, -o dir  output directory of image (default: .)
+```
+
+- Detect with window and save symmetrized images to spesific dir (`outimg`)
+
+```bash
+fsym img/two_people.jpg -o outimg -s --save
+```
+
+### Library
+
 - First, load an image
 
 ```python
@@ -76,3 +102,7 @@ f.get_symmetrized_images(show=True, idx=1)
 ```
 
 ![fig6](img/Figure_6.png)
+
+## LICENSE
+
+MIT

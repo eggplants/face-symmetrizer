@@ -45,14 +45,20 @@ class FaceSym:
     @staticmethod
     def __get_mid_face_locations(
             face_landmarks: FaceLandmarks) -> List[Tuple[int, int]]:
+        def mean(lst: List[int]) -> int:
+            return int(sum(lst)/len(lst))
+
         mid_faces = []
         for face_landmark in face_landmarks:
             if not('left_eye' in face_landmark
                    and 'right_eye' in face_landmark):
                 raise ValueError('eye locations was missing.')
-            l_e = face_landmark["left_eye"][0]
-            r_e = face_landmark["right_eye"][-1]
-            mid_face = (l_e[0]+r_e[0])//2, (l_e[1]+r_e[1])//2
+            l_e_xs = [i[0] for i in face_landmark["left_eye"]]
+            l_e_ys = [i[1] for i in face_landmark["left_eye"]]
+            r_e_xs = [i[0] for i in face_landmark["right_eye"]]
+            r_e_ys = [i[1] for i in face_landmark["right_eye"]]
+            mid_face = ((mean(l_e_xs)+mean(r_e_xs))//2,
+                        (mean(l_e_ys)+mean(r_e_ys))//2,)
             mid_faces.append(mid_face)
         return mid_faces
 
@@ -193,22 +199,20 @@ class FaceSym:
         return re.match(regex, url) is not None
 
 
-LINKS = list(map(
-    lambda x: "https://pbs.twimg.com/media/%s?format=jpg" % x,
-    [
-        "E7okHDEVUAE1O6i",  "E7jaibgUcAUWvg-",
-        "E7jahEbUcAMNLdU",  "E7Jqli9VEAEStvs",
-        "E7Jqk-aUcAcfg3o",  "E7EhGi2XoAsMrO5",
-        "E5dhLccUYAUD5Yx",  "E5TOAqUVUAMckXT",
-        "E4vK6e0VgAAksnK",  "E4Va7u4VkAAKde3",
-        "E4A0ksEUYAIpynP",  "E3xXzcyUYAIX1dC",
-        "E2zkvONVcAQEE_S",  "E1cBsxDUcAIe_LZ",
-        "E1W4HTRVUAgYkmo",  "E1HbVAeVIAId5yP",
-        "E09INVFUcAYpcWo",  "E0oh0hmUUAAfJV9"
-    ]))
-
-
-def main(data: List[str] = LINKS) -> None:
+def main() -> None:
+    data = list(map(
+        lambda x: "https://pbs.twimg.com/media/%s?format=jpg" % x,
+        [
+            "E7okHDEVUAE1O6i",  "E7jaibgUcAUWvg-",
+            "E7jahEbUcAMNLdU",  "E7Jqli9VEAEStvs",
+            "E7Jqk-aUcAcfg3o",  "E7EhGi2XoAsMrO5",
+            "E5dhLccUYAUD5Yx",  "E5TOAqUVUAMckXT",
+            "E4vK6e0VgAAksnK",  "E4Va7u4VkAAKde3",
+            "E4A0ksEUYAIpynP",  "E3xXzcyUYAIX1dC",
+            "E2zkvONVcAQEE_S",  "E1cBsxDUcAIe_LZ",
+            "E1W4HTRVUAgYkmo",  "E1HbVAeVIAId5yP",
+            "E09INVFUcAYpcWo",  "E0oh0hmUUAAfJV9"
+        ]))
     success, fail = 0, 0
     for idx, link in enumerate(data):
         print("[%02d]" % idx, link, end='')
