@@ -126,9 +126,18 @@ class FaceSym:
             pil_img_right, pil_img_right_mirrored)
 
         if show:
-
+            sub_figttls = (
+                'left_cropped', 'left_cropped_inner', 'left_cropped_outer',
+                'right_cropped', 'right_cropped_inner', 'right_cropped_outer')
             axarr: np.ndarray
             f, axarr = plt.subplots(2, 3)
+            f.suptitle('face: %d' % idx)
+            axarr[0, 0].set_title(sub_figttls[0])
+            axarr[0, 1].set_title(sub_figttls[1])
+            axarr[0, 2].set_title(sub_figttls[2])
+            axarr[1, 0].set_title(sub_figttls[3])
+            axarr[1, 1].set_title(sub_figttls[4])
+            axarr[1, 2].set_title(sub_figttls[5])
             axarr[0, 0].imshow(pil_img_left)
             axarr[0, 1].imshow(pil_img_left_inner)
             axarr[0, 2].imshow(pil_img_left_outer)
@@ -164,7 +173,7 @@ class FaceSym:
 
     def get_cropped_face_images(self, show: bool = False) -> List[PILImage]:
         images = []
-        for idx, face_location in enumerate(self.face_locations):
+        for face_location in self.face_locations:
             top, right, bottom, left = face_location
             cropped_face_img = self.f_img[top:bottom, left:right]
             pil_img = Image.fromarray(cropped_face_img)
