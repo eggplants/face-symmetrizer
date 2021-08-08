@@ -7,6 +7,11 @@ from face_symmetrizer import FaceSym
 
 
 def parse_args() -> argparse.Namespace:
+    """[summary]
+
+    Returns:
+        argparse.Namespace: [description]
+    """
     parser = argparse.ArgumentParser(
         prog='fsym',
         description='Easy symmetrizer for an image contained face(s)',
@@ -29,6 +34,8 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
+    """[summary]
+    """
     args = parse_args()
     if args.quiet:
         sys.stdout = io.TextIOWrapper(buffer=io.BytesIO())
@@ -45,6 +52,12 @@ def main() -> None:
 
 
 def _save(f: FaceSym, args: argparse.Namespace) -> None:
+    """[summary]
+
+    Args:
+        f (FaceSym): [description]
+        args (argparse.Namespace): [description]
+    """
     image_names = (
         'left_cropped', 'left_cropped_inner', 'left_cropped_outer',
         'right_cropped', 'right_cropped_inner', 'right_cropped_outer')

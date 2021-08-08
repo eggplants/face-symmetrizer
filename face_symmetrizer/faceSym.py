@@ -20,11 +20,29 @@ FaceLandmarks = List[Dict[str, List[Tuple[Any, ...]]]]
 
 
 class FaceIsNotDetected(Exception):
+    """[summary]
+
+    Args:
+        Exception ([type]): [description]
+    """
     pass
 
 
 class FaceSym:
+    """[summary]
+    """
+    SimImages = Tuple[PILImage, PILImage, PILImage,
+                      PILImage, PILImage, PILImage]
+
     def __init__(self, img_location: str) -> None:
+        """[summary]
+
+        Args:
+            img_location (str): [description]
+
+        Raises:
+            ValueError: [description]
+        """
         self.image_location = img_location
         if self.__is_valid_url(img_location):
             self.__load_from_url(img_location)
@@ -42,27 +60,37 @@ class FaceSym:
             self.face_landmarks)
         self.face_count = len(self.face_locations)
 
-    @staticmethod
-    def __get_mid_face_locations(
-            face_landmarks: FaceLandmarks) -> List[Tuple[int, int]]:
-        def mean(lst: List[int]) -> int:
-            return int(sum(lst)/len(lst))
+    def get_cropped_face_images(self, show: bool = False) -> List[PILImage]:
+        """[summary]
 
-        mid_faces = []
-        for face_landmark in face_landmarks:
-            if not('left_eye' in face_landmark
-                   and 'right_eye' in face_landmark):
-                raise ValueError('eye locations was missing.')
-            l_e_xs = [i[0] for i in face_landmark["left_eye"]]
-            l_e_ys = [i[1] for i in face_landmark["left_eye"]]
-            r_e_xs = [i[0] for i in face_landmark["right_eye"]]
-            r_e_ys = [i[1] for i in face_landmark["right_eye"]]
-            mid_face = ((mean(l_e_xs)+mean(r_e_xs))//2,
-                        (mean(l_e_ys)+mean(r_e_ys))//2,)
-            mid_faces.append(mid_face)
-        return mid_faces
+        Args:
+            show (bool, optional): [description]. Defaults to False.
+
+        Returns:
+            List[PILImage]: [description]
+        """
+        images = []
+        for face_location in self.face_locations:
+            top, right, bottom, left = face_location
+            cropped_face_img = self.f_img[top:bottom, left:right]
+            pil_img = Image.fromarray(cropped_face_img)
+            if show:
+                plt.imshow(pil_img)
+                plt.show()
+
+            images.append(pil_img)
+
+        return images
 
     def get_face_box_drawed_image(self, show: bool = False) -> PILImage:
+        """[summary]
+
+        Args:
+            show (bool, optional): [description]. Defaults to False.
+
+        Returns:
+            PILImage: [description]
+        """
         pil = copy(self.f_img_PIL)
         draw = ImageDraw.Draw(pil)
         for idx, (top, right, bottom, left) in enumerate(self.face_locations):
@@ -87,11 +115,37 @@ class FaceSym:
             plt.show()
         return pil
 
-    SimImages = Tuple[PILImage, PILImage, PILImage,
-                      PILImage, PILImage, PILImage]
+    def get_full_image(self, show: bool = False, is_pil: bool = False
+                       ) -> Union[np.ndarray, PILImage]:
+        """[summary]
+
+        Args:
+            show (bool, optional): [description]. Defaults to False.
+            is_pil (bool, optional): [description]. Defaults to False.
+
+        Returns:
+            Union[np.ndarray, PILImage]: [description]
+        """
+        if show:
+            plt.imshow(self.f_img)
+            plt.show()
+
+        if is_pil:
+            return self.f_img_PIL
+        else:
+            return self.f_img
 
     def get_symmetrized_images(
             self, idx: int = 0, show: bool = False) -> SimImages:
+        """[summary]
+
+        Args:
+            idx (int, optional): [description]. Defaults to 0.
+            show (bool, optional): [description]. Defaults to False.
+
+        Returns:
+            SimImages: [description]
+        """
         def get_concat_h(im1: PILImage, im2: PILImage) -> PILImage:
             dst = Image.new('RGB', (im1.width + im2.width, im1.height))
             dst.paste(im1, (0, 0))
@@ -126,12 +180,13 @@ class FaceSym:
             pil_img_right, pil_img_right_mirrored)
 
         if show:
+            title = 'Symmetrized images (face: %d)' % idx
             sub_figttls = (
                 'left_cropped', 'left_cropped_inner', 'left_cropped_outer',
                 'right_cropped', 'right_cropped_inner', 'right_cropped_outer')
             axarr: np.ndarray
-            f, axarr = plt.subplots(2, 3)
-            f.suptitle('face: %d' % idx)
+            f, axarr = plt.subplots(2, 3, num=title)
+            f.suptitle(title)
             axarr[0, 0].set_title(sub_figttls[0])
             axarr[0, 1].set_title(sub_figttls[1])
             axarr[0, 2].set_title(sub_figttls[2])
@@ -150,6 +205,14 @@ class FaceSym:
                 pil_img_right, pil_img_right_inner, pil_img_right_outer)
 
     def __load_from_url(self, url: str) -> None:
+        """[summary]
+
+        Args:
+            url (str): [description]
+
+        Raises:
+            ValueError: [description]
+        """
         if not self.__is_valid_url(url):
             raise ValueError("'%s' is not valid url" % url)
         else:
@@ -160,41 +223,19 @@ class FaceSym:
         if path.isfile(path_):
             self.f_img = face_recognition.load_image_file(path_)
 
-    def get_full_image(self, show: bool = False, is_pil: bool = False
-                       ) -> Union[np.ndarray, PILImage]:
-        if show:
-            plt.imshow(self.f_img)
-            plt.show()
-
-        if is_pil:
-            return self.f_img_PIL
-        else:
-            return self.f_img
-
-    def get_cropped_face_images(self, show: bool = False) -> List[PILImage]:
-        images = []
-        for face_location in self.face_locations:
-            top, right, bottom, left = face_location
-            cropped_face_img = self.f_img[top:bottom, left:right]
-            pil_img = Image.fromarray(cropped_face_img)
-            if show:
-                plt.imshow(pil_img)
-                plt.show()
-
-            images.append(pil_img)
-
-        return images
-
-    def get_size(self) -> Tuple[int, int]:
-        return self.image_size
-
-    def get_face_locations(self) -> List[Tuple[int, Any, Any, int]]:
-        return self.face_locations
-
     @staticmethod
     def __is_valid_url(url: str) -> bool:
-        """Copyright (c) Django Software Foundation and individual contributors.
-           All rights reserved.
+        """[summary]
+
+        Args:
+            url (str): [description]
+
+        Returns:
+            bool: [description]
+
+        Note:
+            Copyright (c) Django Software Foundation and individual
+            contributors. All rights reserved.
         """
         regex = re.compile(
             r'^(?:http|ftp)s?://'  # http:// or https://
@@ -207,8 +248,38 @@ class FaceSym:
             r'(?:/?|[/?]\S+)$', re.IGNORECASE)
         return re.match(regex, url) is not None
 
+    @staticmethod
+    def __get_mid_face_locations(
+            face_landmarks: FaceLandmarks) -> List[Tuple[int, int]]:
+        """[summary]
+
+        Args:
+            face_landmarks (FaceLandmarks): [description]
+
+        Returns:
+            List[Tuple[int, int]]: [description]
+        """
+        def mean(lst: List[int]) -> int:
+            return int(sum(lst)/len(lst))
+
+        mid_faces = []
+        for face_landmark in face_landmarks:
+            if not('left_eye' in face_landmark
+                   and 'right_eye' in face_landmark):
+                raise ValueError('eye locations was missing.')
+            l_e_xs = [i[0] for i in face_landmark["left_eye"]]
+            l_e_ys = [i[1] for i in face_landmark["left_eye"]]
+            r_e_xs = [i[0] for i in face_landmark["right_eye"]]
+            r_e_ys = [i[1] for i in face_landmark["right_eye"]]
+            mid_face = ((mean(l_e_xs)+mean(r_e_xs))//2,
+                        (mean(l_e_ys)+mean(r_e_ys))//2,)
+            mid_faces.append(mid_face)
+        return mid_faces
+
 
 def main() -> None:
+    """[summary]
+    """
     data = list(map(
         lambda x: "https://pbs.twimg.com/media/%s?format=jpg" % x,
         [
