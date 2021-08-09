@@ -2,7 +2,7 @@ from setuptools import find_packages, setup  # type: ignore
 
 setup(
     name='face_symmetrizer',
-    version='1.5',
+    version='1.6',
     description='Easy symmetrizer for an image contained face(s)',
     description_content_type='',
     long_description=open('README.md').read(),
