@@ -20,7 +20,7 @@ pip install face-symmetrizer
 
 ```txt
 $ fsym -h
-usage: fsym [-h] [--show] [--save] [--quiet] [--outdir dir] file [file ...]
+usage: fsym [-h] [-s] [-S] [-q] [-o dir] file [file ...]
 
 Easy symmetrizer for an image contained face(s)
 
@@ -29,10 +29,10 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  --show, -s            show images (default: False)
-  --save, -S            save images (default: False)
-  --quiet, -q           make log quiet (default: False)
-  --outdir dir, -o dir  directory when saving images (default: .)
+  -s, --show            show images (default: False)
+  -S, --save            save images (default: False)
+  -q, --quiet           make log quiet (default: False)
+  -o dir, --outdir dir  directory when saving images (default: .)
 ```
 
 - Detect with window and save symmetrized images to [outimg](outimg)
