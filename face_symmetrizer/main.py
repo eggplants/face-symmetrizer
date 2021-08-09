@@ -18,16 +18,16 @@ def parse_args() -> argparse.Namespace:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('images', metavar='file', type=str, nargs='+',
                         help='input image files')
-    parser.add_argument('--show', '-s',
+    parser.add_argument('-s', '--show',
                         action='store_true',
                         help="show images")
-    parser.add_argument('--save', '-S',
+    parser.add_argument('-S',  '--save',
                         action='store_true',
                         help="save images")
-    parser.add_argument('--quiet', '-q',
+    parser.add_argument('-q', '--quiet',
                         action='store_true',
                         help='make log quiet')
-    parser.add_argument('--outdir', '-o',
+    parser.add_argument('-o', '--outdir',
                         default='.', type=str, metavar='dir',
                         help="directory when saving images")
     return parser.parse_args()
