@@ -18,7 +18,7 @@ pip install face-symmetrizer
 
 ### Command
 
-```txt
+```shellsession
 $ fsym -h
 usage: fsym [-h] [-s] [-S] [-q] [-o dir] file [file ...]
 
@@ -37,7 +37,7 @@ optional arguments:
 
 - Detect with window and save symmetrized images to [outimg](outimg)
 
-```txt
+```shellsession
 $ fsym img/two_people.jpg -o outimg -s --save
 [+]image: img/two_people.jpg
 [+]2 face(s) was detected.
