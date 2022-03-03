@@ -8,8 +8,8 @@ from typing import Any, Dict, List, Tuple, Union
 from urllib.request import urlopen
 
 import face_recognition  # type: ignore[import]
-import matplotlib
-import matplotlib.pyplot as plt
+import matplotlib  # type: ignore[import]
+import matplotlib.pyplot as plt  # type: ignore[import]
 import numpy as np
 from PIL import Image, ImageDraw, ImageOps
 
@@ -43,6 +43,7 @@ class FaceSym:
         Raises:
             ValueError: [description]
         """
+        self.f_img: np.ndarray[Any, Any]
         self.image_location = img_location
         if self.__is_valid_url(img_location):
             self.__load_from_url(img_location)
@@ -118,7 +119,7 @@ class FaceSym:
 
     def get_full_image(
         self, show: bool = False, is_pil: bool = False
-    ) -> Union[np.ndarray, PILImage]:
+    ) -> Union[np.ndarray[Any, Any], PILImage]:
         """[summary]
 
         Args:
@@ -187,7 +188,7 @@ class FaceSym:
                 "right_cropped_inner",
                 "right_cropped_outer",
             )
-            axarr: np.ndarray
+            axarr: np.ndarray[Any, Any]
             f, axarr = plt.subplots(2, 3, num=title)
             f.suptitle(title)
             axarr[0, 0].set_title(sub_figttls[0])

@@ -1,6 +1,6 @@
-from face_symmetrizer import FaceSym
+import face_symmetrizer
 
-f = FaceSym("img/two_people.jpg")
+f = face_symmetrizer.FaceSym("img/two_people.jpg")
 # or:
 # f = FaceSym("https://raw.githubusercontent.com/ageitgey/face_recognition/master/examples/two_people.jpg")
 for k in [
