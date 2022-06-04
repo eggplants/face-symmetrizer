@@ -2,6 +2,8 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/face_symmetrizer)](https://pypi.org/project/face-symmetrizer) [![GitHub release](https://img.shields.io/github/v/release/eggplants/face-symmetrizer)](https://github.com/eggplants/face-symmetrizer/releases)
 
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/eggplants/face-symmetrizer/master.svg)](https://results.pre-commit.ci/latest/github/eggplants/face-symmetrizer/master)
+
 - Easy symmetrizer for an image contained face(s)
 
 ## Install
