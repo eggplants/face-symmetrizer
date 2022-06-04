@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+from __future__ import annotations
 
 import io
 import re
 from copy import copy
 from os import path
-from typing import Any, Dict, List, Tuple, Union
+from typing import Any, Dict, List, Tuple
 from urllib.request import urlopen
 
 import face_recognition  # type: ignore[import]
@@ -50,16 +50,18 @@ class FaceSym:
         elif path.isfile(img_location):
             self.__load_from_local(img_location)
         else:
-            raise ValueError("'%s' is not a valid location of an image." % img_location)
+            raise ValueError(
+                f"{repr(img_location)} is not a valid location of an image."
+            )
 
         self.f_img_PIL = Image.fromarray(self.f_img)
-        self.image_size: Tuple[int, int] = self.f_img_PIL.size
+        self.image_size: tuple[int, int] = self.f_img_PIL.size
         self.face_locations = face_recognition.face_locations(self.f_img)
         self.face_landmarks = face_recognition.face_landmarks(self.f_img)
         self.mid_face_locations = self.__get_mid_face_locations(self.face_landmarks)
         self.face_count = len(self.face_locations)
 
-    def get_cropped_face_images(self, show: bool = False) -> List[PILImage]:
+    def get_cropped_face_images(self, show: bool = False) -> list[PILImage]:
         """[summary]
 
         Args:
@@ -93,7 +95,7 @@ class FaceSym:
         pil = copy(self.f_img_PIL)
         draw = ImageDraw.Draw(pil)
         for idx, (top, right, bottom, left) in enumerate(self.face_locations):
-            name = str("%02d" % idx)
+            name = str(f"{idx:02d}")
             mid_face = self.mid_face_locations[idx]
 
             draw.rectangle(((left, top), (right, bottom)), outline=(0, 0, 255))
@@ -119,7 +121,7 @@ class FaceSym:
 
     def get_full_image(
         self, show: bool = False, is_pil: bool = False
-    ) -> Union[np.ndarray[Any, Any], PILImage]:
+    ) -> np.ndarray[Any, Any] | PILImage:
         """[summary]
 
         Args:
@@ -159,7 +161,7 @@ class FaceSym:
         if face_count < 1:
             raise FaceIsNotDetected
         elif face_count <= idx:
-            raise IndexError("0 <= idx <= %d" % (face_count - 1))
+            raise IndexError(f"0 <= idx <= {face_count - 1}")
         else:
             mid_face = self.mid_face_locations[idx]
 
@@ -179,7 +181,7 @@ class FaceSym:
         pil_img_right_outer = get_concat_h(pil_img_right, pil_img_right_mirrored)
 
         if show:
-            title = "Symmetrized images (face: %d)" % idx
+            title = f"Symmetrized images (face: {idx})"
             sub_figttls = (
                 "left_cropped",
                 "left_cropped_inner",
@@ -224,7 +226,7 @@ class FaceSym:
             ValueError: [description]
         """
         if not self.__is_valid_url(url):
-            raise ValueError("'%s' is not valid url" % url)
+            raise ValueError(f"{repr(url)} is not valid url")
         else:
             img_data = io.BytesIO(urlopen(url).read())
             self.f_img = face_recognition.load_image_file(img_data)
@@ -263,7 +265,7 @@ class FaceSym:
     @staticmethod
     def __get_mid_face_locations(
         face_landmarks: FaceLandmarks,
-    ) -> List[Tuple[int, int]]:
+    ) -> list[tuple[int, int]]:
         """[summary]
 
         Args:
@@ -273,7 +275,7 @@ class FaceSym:
             List[Tuple[int, int]]: [description]
         """
 
-        def mean(lst: List[int]) -> int:
+        def mean(lst: list[int]) -> int:
             return int(sum(lst) / len(lst))
 
         mid_faces = []
@@ -321,7 +323,7 @@ def main() -> None:
     )
     success, fail = 0, 0
     for idx, link in enumerate(data):
-        print("[%02d]" % idx, link, end="")
+        print(f"[{idx:02d}]", link, end="")
         f = FaceSym(link)
         if f.face_count != 0:
             print("=>Detected")
@@ -332,7 +334,7 @@ def main() -> None:
             fail += 1
 
     else:
-        print("DATA: %d" % len(data), "OK: %d" % success, "NG: %d" % fail)
+        print(f"DATA: {len(data)}", f"OK: {success}", f"NG: {fail}")
 
 
 if __name__ == "__main__":

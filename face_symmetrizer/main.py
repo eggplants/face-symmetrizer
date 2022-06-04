@@ -47,7 +47,7 @@ def main() -> None:
             print("[!]not found.")
             continue
         f = FaceSym(filepath)
-        print("[+]{} face(s) was detected.".format(f.face_count))
+        print(f"[+]{f.face_count} face(s) was detected.")
         _save(f, args)
 
 
@@ -76,7 +76,7 @@ def _save(f: FaceSym, args: argparse.Namespace) -> None:
         for idx, im in enumerate(ims):
             savepath = os.path.join(
                 args.outdir,
-                "{}.face-{}.{}{}".format(name, face_id, image_names[idx], ext),
+                f"{name}.face-{face_id}.{image_names[idx]}{ext}",
             )
             if args.save:
                 print("[+]save:", savepath)

@@ -37,6 +37,20 @@ repos:
     rev: 4.0.1
     hooks:
       - id: flake8
+  - repo: https://github.com/nbQA-dev/nbQA
+    rev: 1.3.1
+    hooks:
+      - id: nbqa-black
+      - id: nbqa-pyupgrade
+        args: [--py36-plus]
+      - id: nbqa-isort
+      - id: nbqa-flake8
+        args: ["--ignore=E203,E402"]
+      - id: nbqa-mypy
+        additional_dependencies:
+          - types-Pillow
+          - numpy
+          - mypy
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v0.960
     hooks:
@@ -46,6 +60,7 @@ repos:
           - numpy
         files: ^face_symmetrizer/
         args: [--strict]
+
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.31.1
     hooks:
